@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>vue_practice_slot2</title>
+	<meta charset="utf-8">
+	<meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'>
+	<meta http-equiv='X-UA-Compatible' IE='Edge'>
+	<link rel='icon' type='image/x-icon' href='images/favicon.ico'>
+	<link rel="stylesheet" href='styles/vue_practice_slot2.css'>
+</head>
+<body>
+<div id='app'>
+	<button @click='show'>打开对话框</button>
+	<my-component1 :class='{hide:isShow}'>
+		<div slot='header'>
+			<h1>{{ info }}</h1>
+		</div>
+		<div slot='content'>
+			<p>{{ content.msg1 }}</p>
+			<p>{{ content.msg2 }}</p>
+		</div>
+		<div slot='bottom'>
+			<button @click='hide'>关闭</button>
+		</div>
+	</my-component1>
+</div>
+<template id='dialog'>
+	<div class='box'>
+		<slot name='header'></slot>
+		<slot name='content'></slot>
+		<slot name='bottom'></slot>
+	</div>
+</template>
+<script src='javascript/vue.js'></script>
+<script>
+new Vue({
+	el:'#app',
+	data:{
+		info:'提示信息',
+		content:{
+			msg1:'你想在对话框中放什么内容都可以！',
+			msg2:'你可以放一段文字，也可以放一些表单，或者是一些图片。'
+		},
+		isShow:true
+	},
+	components:{
+		'my-component1':{
+			template:'#dialog'
+		}
+	},
+	methods:{
+		show(){
+			this.isShow = !this.isShow;
+		},
+		hide(){
+			this.isShow = !this.isShow;
+		}
+	}
+})	
+</script>
+</body>
+</html>
